@@ -1,0 +1,12 @@
+{% extends 'base.html' %}{% block title %}Edit student{% endblock %}{% block content %}
+<div class="page-head"><div><span class="eyebrow">SUPER ADMIN</span><h1>Edit {{ user.name }}</h1><p class="muted">Student #{{ user.id }}</p></div></div>
+<form id="student-edit-form" method="post" class="card form-card narrow"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <label>Name<input name="name" value="{{ user.name }}" required maxlength="120"></label>
+  <label>Department or class<input name="department" value="{{ user.department or '' }}" maxlength="120"></label>
+  <label>Attendance location<select name="location_id" required><option value="">Select location</option>{% for location in locations %}<option value="{{ location.id }}" {% if user.location_id == location.id %}selected{% endif %}>{{ location.name }}</option>{% endfor %}</select></label>
+  <label class="inline"><input type="checkbox" name="active" {% if user.active %}checked{% endif %}> Active student</label>
+  <h2>Replace face reference (optional)</h2><p class="muted">Only capture photos if this student's registered face needs updating.</p>
+  {% set multi = true %}{% include 'camera.html' %}
+  <button class="button primary">Save changes</button>
+</form>
+{% endblock %}

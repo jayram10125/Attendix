@@ -1,0 +1,18 @@
+{% extends 'base.html' %}{% block title %}Students{% endblock %}{% block content %}
+<div class="page-head"><div><span class="eyebrow">SUPER ADMIN</span><h1>Register students</h1><p class="muted">Capture the student's face and assign a location. Students do not need an ID or password.</p></div></div>
+<div class="grid-two">
+  <form id="student-form" method="post" class="card form-card">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><h2>Add a student</h2>
+    <label>Student name<input name="name" required maxlength="120"></label>
+    <label>Department or class<input name="department" maxlength="120"></label>
+    <label>Attendance location<select name="location_id" required><option value="">Select location</option>{% for location in locations %}<option value="{{ location.id }}">{{ location.name }}</option>{% endfor %}</select></label>
+    {% if not locations %}<p class="alert warning">Add an active <a href="{{ url_for('main.locations') }}">location</a> before registering a student.</p>{% endif %}
+    <h2>Capture face</h2><p class="muted">Ask the student to look straight, slightly left, then slightly right.</p>
+    {% set multi = true %}{% include 'camera.html' %}
+    <button class="button primary full" {% if not locations %}disabled{% endif %}>Register student</button>
+  </form>
+  <section class="card"><h2>Registered students</h2><div class="request-list">
+    {% for user in users %}<div class="request-item"><div><strong>{{ user.name }}</strong><small>#{{ user.id }} · {{ user.location.name if user.location else 'No location' }} · {{ 'Active' if user.active else 'Inactive' }}</small><small>{{ user.department or 'No class' }}</small></div><a href="{{ url_for('main.edit_user', user_id=user.id) }}">Edit →</a></div>{% else %}<p class="empty">No students registered yet.</p>{% endfor %}
+  </div></section>
+</div>
+{% endblock %}

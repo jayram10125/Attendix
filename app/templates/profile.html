@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block title %}Profile{% endblock %}{% block content %}
+<div class="page-head"><div><span class="eyebrow">ACCOUNT</span><h1>Your profile</h1></div></div><div class="grid-two"><section class="card form-card"><h2>{{ current_user.name }}</h2><p>{{ current_user.email }}</p><p class="muted">{{ current_user.role|title }} · {{ current_user.department or 'No department' }}</p><p class="muted">Location: {{ current_user.location.name if current_user.location else 'Not assigned' }}</p></section><form method="post" class="card form-card"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><h2>Change password</h2><label>Current password<input name="old_password" type="password" required></label><label>New password<input name="new_password" type="password" minlength="12" required></label><button class="button primary">Update password</button></form></div>
+{% endblock %}
+

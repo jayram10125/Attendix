@@ -1,0 +1,17 @@
+{% extends 'base.html' %}{% block title %}Mark attendance{% endblock %}{% block content %}
+<section class="kiosk-shell">
+  <span class="eyebrow">FACE ATTENDANCE</span>
+  <h1>Mark your attendance</h1>
+  <p class="muted">Stand at your assigned location. Press the button, look into the camera and allow location access.</p>
+  <form id="kiosk-form" method="post" action="{{ url_for('main.index') }}" class="card kiosk-card">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="photo"><input type="hidden" name="latitude"><input type="hidden" name="longitude">
+    <video autoplay playsinline muted hidden></video><canvas hidden></canvas>
+    <div class="kiosk-symbol" aria-hidden="true">◎</div>
+    <h2>Ready to check in?</h2>
+    <p id="kiosk-status" class="muted" aria-live="polite">Your registered face, GPS location and schedule will be checked.</p>
+    <button id="start-attendance" type="button" class="button primary kiosk-button">Mark attendance</button>
+  </form>
+  <p class="privacy-note">The camera opens only after you press the button. No student login is needed. Camera and GPS need localhost or HTTPS.</p>
+</section>
+{% endblock %}

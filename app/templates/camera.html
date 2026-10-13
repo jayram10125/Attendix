@@ -1,0 +1,8 @@
+<div class="camera-panel" data-camera {% if multi|default(false) %}data-multi="true"{% endif %}>
+  <video autoplay playsinline muted></video><canvas hidden></canvas>
+  <input type="hidden" name="{{ 'photos' if multi|default(false) else 'photo' }}" required>
+  <p class="camera-status muted">Camera is off. Press Start camera and allow access.</p>
+  <div class="button-row"><button class="button secondary start-camera" type="button">Start camera</button><button class="button secondary capture-camera" type="button" disabled>Capture photo</button></div>
+  {% if multi|default(false) %}<p class="small muted">Capture 3 clear photos: straight ahead, slightly left, then slightly right.</p>{% else %}<p class="small muted">Use a clear, front-facing photo with one person.</p>{% endif %}
+</div>
+

@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block title %}Reports{% endblock %}{% block content %}
+<div class="page-head"><div><span class="eyebrow">INSIGHTS</span><h1>Monthly report</h1><p class="muted">Attendance totals for your permitted users.</p></div></div><form method="get" class="filter-bar card"><label>Month<input type="month" name="month" value="{{ month }}" required></label><button class="button primary">View report</button></form><div class="card table-wrap"><table><thead><tr><th>Person</th><th>Present</th><th>Late</th><th>Approved exceptions</th><th>Total</th></tr></thead><tbody>{% for user_key, counts in summary.items() %}<tr><td>{{ user_key[1] }}</td><td>{{ counts.present }}</td><td>{{ counts.late }}</td><td>{{ counts.approved }}</td><td><strong>{{ counts.present + counts.late + counts.approved }}</strong></td></tr>{% else %}<tr><td colspan="5" class="empty">No records this month.</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}
+
