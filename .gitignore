@@ -1,5 +1,4 @@
-.env
-.admin-credentials
+
 MyEnv/
 .venv/
 __pycache__/
